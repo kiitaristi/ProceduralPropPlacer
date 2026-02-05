@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bbrnufpl5yaiy"]
+
+[ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://FoliageGenerator.cs" id="1_j72se"]
+
+[node name="FoliageGenerator" type="Node3D" unique_id=465271837]
+script = ExtResource("1_j72se")
