@@ -6,6 +6,9 @@ public partial class FoliageGenerator : Node3D
 {
 	private bool _toolActive = false;
 	
+	public FastNoiseLite noiseMap;
+	public string seed;
+	
 	public override void _Ready() {
 		// process that occurs at runtime
 		if (!Engine.IsEditorHint()) {

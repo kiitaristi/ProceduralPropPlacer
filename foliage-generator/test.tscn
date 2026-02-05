@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d34w7kuas2tkv"]
+
+[ext_resource type="Script" uid="uid://bjoniyeydunpp" path="res://FoliageGenerator/GeneratorInterface.cs" id="1_8uh7m"]
+[ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://FoliageGenerator/FoliageGenerator.cs" id="1_37kl0"]
+
+[node name="Test" type="Node3D" unique_id=1125569540]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1231419716]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.833517, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=1825866388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014021039, -0.049842477, -0.010411054)
+use_collision = true
+size = Vector3(9, 0.1, 9)
+
+[node name="GenerativeToolTestField" type="CSGBox3D" parent="." unique_id=1917403645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03638631, 0)
+transparency = 1.0
+cast_shadow = 0
+size = Vector3(3, 0, 3)
+script = ExtResource("1_8uh7m")
+
+[node name="Node3D" type="Node3D" parent="GenerativeToolTestField" unique_id=539230474]
+visibility_parent = NodePath("..")
+script = ExtResource("1_37kl0")
