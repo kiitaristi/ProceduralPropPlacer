@@ -5,9 +5,19 @@ using System;
 public partial class FoliageGenerator : Node3D
 {
 	private bool _toolActive = false;
+	private GodotObject discSample; 
 	
-	public FastNoiseLite noiseMap;
-	public string seed;
+	[ExportCategory("Mesh Settings")]
+	[Export] public MeshInstance3D meshObject;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float meshScale = 1f;
+	
+	[ExportCategory("Noise Settings")]
+	[Export] public FastNoiseLite noiseMap;
+	[Export] public int maximumObjects;
+	
+	[ExportCategory("Seed")]
+	[Export] public string seed;
 	
 	public override void _Ready() {
 		// process that occurs at runtime
@@ -21,7 +31,11 @@ public partial class FoliageGenerator : Node3D
 	public override void _Process(double delta) {
 		// process that occurs in editor
 		if (Engine.IsEditorHint()) {
-			// FIXME: foliage tool output preview
+			
 		}
+	}
+	
+	private void _InstantiateSampling() {
+		var scriptPath = GD.Load<GDScript>();
 	}
 }
