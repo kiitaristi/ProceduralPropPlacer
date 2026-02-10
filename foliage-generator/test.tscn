@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://d34w7kuas2tkv"]
 
-[ext_resource type="Script" uid="uid://bjoniyeydunpp" path="res://FoliageGenerator/GeneratorInterface.cs" id="1_8uh7m"]
 [ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://FoliageGenerator/FoliageGenerator.cs" id="1_37kl0"]
+[ext_resource type="BoxMesh" uid="uid://c0bdnn3yo3wup" path="res://example_mesh.tres" id="2_8uh7m"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_37kl0"]
+noise_type = 0
+offset = Vector3(0, 0.05, 0)
 
 [node name="Test" type="Node3D" unique_id=1125569540]
 
@@ -14,13 +18,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014021039, -0.049842477, -
 use_collision = true
 size = Vector3(9, 0.1, 9)
 
-[node name="GenerativeToolTestField" type="CSGBox3D" parent="." unique_id=1917403645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03638631, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=362158367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 transparency = 1.0
-cast_shadow = 0
-size = Vector3(3, 0, 3)
-script = ExtResource("1_8uh7m")
-
-[node name="Node3D" type="Node3D" parent="GenerativeToolTestField" unique_id=539230474]
-visibility_parent = NodePath("..")
+custom_aabb = AABB(0, 0, 0, 1, 0, 1)
 script = ExtResource("1_37kl0")
+objectMesh = ExtResource("2_8uh7m")
+noise = SubResource("FastNoiseLite_37kl0")
