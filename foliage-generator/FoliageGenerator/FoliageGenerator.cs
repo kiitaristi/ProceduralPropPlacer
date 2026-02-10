@@ -8,7 +8,6 @@ public partial class FoliageGenerator : Node3D
 	private bool _test = true;
 	private Vector3 _scalePrev;
 	
-	[ExportCategory("Active Editor Updates")]
 	[Export] public bool toolActive = false;
 	
 	[ExportCategory("Object Settings")]
