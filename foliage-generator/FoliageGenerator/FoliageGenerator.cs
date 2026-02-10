@@ -22,6 +22,9 @@ public partial class FoliageGenerator : Node3D
 	[ExportCategory("Generation Settings")]
 	[Export] public FastNoiseLite noise { get; set; }
 	[Export] public int maximumObjects;
+	[Export] public bool factorXValues;
+	[Export] public bool factorYValues;
+	[Export] public bool factorZValues;
 	
 	[ExportCategory("Seed")]
 	[Export] public string seed;
