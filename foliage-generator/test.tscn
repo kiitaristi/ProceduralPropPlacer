@@ -4,7 +4,6 @@
 [ext_resource type="BoxMesh" uid="uid://c0bdnn3yo3wup" path="res://example_mesh.tres" id="2_8uh7m"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_37kl0"]
-noise_type = 0
 offset = Vector3(0, 0.05, 0)
 
 [node name="Test" type="Node3D" unique_id=1125569540]
@@ -20,8 +19,9 @@ size = Vector3(9, 0.1, 9)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=362158367]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-transparency = 1.0
+cast_shadow = 0
 custom_aabb = AABB(0, 0, 0, 1, 0, 1)
 script = ExtResource("1_37kl0")
 objectMesh = ExtResource("2_8uh7m")
 noise = SubResource("FastNoiseLite_37kl0")
+maximumObjects = 108
