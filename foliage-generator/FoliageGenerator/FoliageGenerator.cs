@@ -46,13 +46,6 @@ public partial class FoliageGenerator : Node3D
 	[Export] public string seed;
 	
 	public override void _Ready() {
-		// process that occurs at runtime or on editor startup
-		if (Engine.IsEditorHint()) {
-			noise.Offset = this.GetPosition();
-			_PopulateObjectArray();
-			_PopulateToolArea();
-		}
-		
 		if (!Engine.IsEditorHint()) {
 			// FIXME: what the attached foliage tool 
 			// outputs from the parent object's transform
