@@ -61,6 +61,11 @@ public partial class FoliageGenerator : Node3D
 	}
 	
 	private void _PopulateObjectArray() {
+		if (_objects.Count != 0) {
+			foreach (MeshInstance3D obj in _objects) {
+				obj.QueueFree();
+			}
+		}
 		_objects = [];
 		Vector3 scalarVec = new Vector3(objectXScale, objectYScale, objectZScale);
 		
@@ -111,6 +116,10 @@ public partial class FoliageGenerator : Node3D
 			noise.Offset = this.GetPosition();
 			_PopulateObjectArray();
 			_PopulateToolArea();
+			
+			foreach (MeshInstance3D obj in _objects) {
+				AddChild(obj);
+			}
 			
 			GD.Print("pos: " + this.GetPosition() + ", scale: " + this.GetScale());
 			GD.Print("array size: " + _objects.Count);
