@@ -24,8 +24,10 @@ public partial class FoliageGenerator : Node3D
 	[ExportCategory("Generation Settings")]
 	[ExportGroup("Noise Settings")]
 	[Export] public FastNoiseLite noise { get; set; }
+	[Export(PropertyHint.Range, "0,30,")]
+	public float noiseScalar;
 	[ExportGroup("Density Settings")]
-	[Export(PropertyHint.Range, "0,2000,")]
+	[Export(PropertyHint.Range, "0,20000,")]
 	public int maximumObjects;
 	[ExportGroup("X Scalar Settings")]
 	[Export] public bool scaleXValues;
@@ -49,9 +51,6 @@ public partial class FoliageGenerator : Node3D
 			noise.Offset = this.GetPosition();
 			_PopulateObjectArray();
 			_PopulateToolArea();
-			
-			GD.Print("pos: " + this.GetPosition() + ", scale: " + this.GetScale());
-			GD.Print("array size: " + _objects.Count);
 		}
 		
 		if (!Engine.IsEditorHint()) {
@@ -81,33 +80,32 @@ public partial class FoliageGenerator : Node3D
 	private void _PopulateToolArea() {
 		Vector3 posVec;
 		Vector3 scaleVec;
+		int maxIter = (int)Math.Floor(Math.Sqrt(maximumObjects));
+		int arrayIter = 0;
 		
-		for (int j = 0; j < (int)Math.Floor(Math.Sqrt(maximumObjects)); j++) {
-			for (int i = 0; i < (int)Math.Floor(Math.Sqrt(maximumObjects)); i++) {
+		for (int j = (int)(-(maxIter / 2)); j < (int)(maxIter / 2); j++) {
+			for (int i = (int)(-(maxIter / 2)); i < (int)(maxIter / 2); i++) {
 				float currNoise = noise.GetNoise2D(
 					(float)(this.GetScale()[0] * i / Math.Sqrt(maximumObjects)),
 					(float)(this.GetScale()[2] * j / Math.Sqrt(maximumObjects))
 					);
-				GD.Print("noise map " + currNoise);
-				MeshInstance3D currObj = _objects[i + j];
-					
-				posVec = this.GetScale() * new Vector3((float)(i / Math.Sqrt(maximumObjects)), 
-					(float)this.Position[1], (float)(j / Math.Sqrt(maximumObjects)));
-				currObj.SetPosition(posVec);
+				MeshInstance3D currObj = _objects[arrayIter];
 					
 				scaleVec = currObj.GetScale() * new Vector3(
-					scaleXValues ? xValueScalar * currNoise : 1,
-					scaleYValues ? yValueScalar * currNoise : 1,
-					scaleZValues ? zValueScalar * currNoise : 1
+					scaleXValues ? xValueScalar * currNoise * noiseScalar : 1,
+					scaleYValues ? yValueScalar * currNoise * noiseScalar : 1,
+					scaleZValues ? zValueScalar * currNoise * noiseScalar : 1
 				);
 				currObj.SetScale(scaleVec);
 				currObj.Show();
 				
-				GD.Print("i step: " + i);
-				GD.Print(currObj.GetType() + " position " + currObj.GetPosition() 
-				+ " scale " + currObj.GetScale());
+				posVec = new Vector3((float)(i / Math.Sqrt(maximumObjects)), 
+					(float)this.Position[1] + (float)Math.Abs(currObj.Scale[1] / 2), (float)(j / Math.Sqrt(maximumObjects)));
+				currObj.SetPosition(ToGlobal(posVec));
+				
+				Owner.AddChild(currObj);
+				arrayIter++;
 			}
-			GD.Print("j step: " + j);
 		}
 	}
 	
@@ -116,13 +114,6 @@ public partial class FoliageGenerator : Node3D
 			noise.Offset = this.GetPosition();
 			_PopulateObjectArray();
 			_PopulateToolArea();
-			
-			foreach (MeshInstance3D obj in _objects) {
-				AddChild(obj);
-			}
-			
-			GD.Print("pos: " + this.GetPosition() + ", scale: " + this.GetScale());
-			GD.Print("array size: " + _objects.Count);
 		}
 	}
 }

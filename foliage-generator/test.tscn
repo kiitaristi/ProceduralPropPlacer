@@ -4,7 +4,7 @@
 [ext_resource type="BoxMesh" uid="uid://c0bdnn3yo3wup" path="res://example_mesh.tres" id="2_8uh7m"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8uh7m"]
-offset = Vector3(0, 0.05623442, 0)
+frequency = 0.0119
 
 [node name="Test" type="Node3D" unique_id=1125569540]
 
@@ -13,13 +13,20 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8
 shadow_enabled = true
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=1825866388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014021039, -0.049842477, -0.010411054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 use_collision = true
-size = Vector3(9, 0.1, 9)
+size = Vector3(10.077637, 0.1, 10.0703125)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=581565585]
-transform = Transform3D(2.585, 0, 0, 0, 2.585, 0, 0, 0, 2.585, 0, 0.05623442, 0)
-custom_aabb = AABB(0, 0, 0, 1, 0, 1)
+process_mode = 3
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 script = ExtResource("1_37kl0")
 objectMesh = ExtResource("2_8uh7m")
+objectXScale = 0.005
+objectYScale = 0.2
+objectZScale = 0.005
 noise = SubResource("FastNoiseLite_8uh7m")
+noiseScalar = 6.517
+maximumObjects = 20000
+scaleYValues = true
+yValueScalar = 2.091

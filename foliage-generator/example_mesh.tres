@@ -5,4 +5,3 @@
 [resource]
 lightmap_size_hint = Vector2i(5, 8)
 material = SubResource("StandardMaterial3D_43wey")
-size = Vector3(0.01, 0.2, 0.01)
