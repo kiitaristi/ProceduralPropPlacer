@@ -27,6 +27,6 @@ objectYScale = 0.2
 objectZScale = 0.005
 noise = SubResource("FastNoiseLite_8uh7m")
 noiseScalar = 6.517
-maximumObjects = 20000
+maximumObjects = 19295
 scaleYValues = true
 yValueScalar = 2.091

@@ -60,12 +60,14 @@ public partial class FoliageGenerator : Node3D
 	}
 	
 	private void _PopulateObjectArray() {
+		_objects = [];
+		
 		if (_objects.Count != 0) {
 			foreach (MeshInstance3D obj in _objects) {
 				obj.QueueFree();
 			}
 		}
-		_objects = [];
+		
 		Vector3 scalarVec = new Vector3(objectXScale, objectYScale, objectZScale);
 		
 		for (int i = 0; i < maximumObjects; i++) {
