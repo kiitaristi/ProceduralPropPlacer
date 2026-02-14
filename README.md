@@ -21,7 +21,7 @@ Once you've done this, you now have access to the **ProceduralAssetNode**, which
 
 - Object Mesh: Takes a mesh object as input.
 
-##### Object Scaling
+#### Object Scaling
 
 - Object X Scalar: A scalar that scales the given mesh along the X-axis.
 - Object Y Scalar: A scalar that scales the given mesh along the Y-axis.
@@ -29,48 +29,48 @@ Once you've done this, you now have access to the **ProceduralAssetNode**, which
 
 #### GENERATION SETTINGS
 
-##### Object Density
+#### Object Density
 
 - Maximum Objects: The maximum amount of objects output by the ProceduralAssetNode.
 
-##### Noise
+#### Noise
 
 - Fast Noise Lite: Takes the Fast Noise Lite library as input, at which point the user can access the library's associated noise parameters.
 - Noise Scalar: Scales the effects of the given noise parameters.
 
-##### Jitter
+#### Jitter
 
 - Jitter Upper Bound: The positive bound of the jitter offset.
 - Jitter Lower Bound: The negative bound of the jitter offset.
 
-##### X-Axis Scalar
+#### X-Axis Scalar
 
 - Scale X: Toggles whether noise affects x-axis scaling of procedurally-generated objects.
 - X Value Scalar: A scalar applied to procedurally-generated objects' x-axis scaling.
 
-##### Y-Axis Scalar
+#### Y-Axis Scalar
 
 - Scale Y: Toggles whether noise affects y-axis scaling of procedurally-generated objects.
 - Y Value Scalar: A scalar applied to procedurally-generated objects' y-axis scaling.
 
-##### Z-Axis Scalar
+#### Z-Axis Scalar
 
 - Scale Z: Toggles whether noise affects z-axis scaling of procedurally-generated assets.
 - Z Value Scalar: A scalar applied to procedurally-generated assets' z-axis scaling.
 
-##### X-Axis Rotation
+#### X-Axis Rotation
 
 - Rotate X: Toggles whether procedurally-generated objects are rotated about their x-axes.
 - Rotate X Upper Bound: The upper limit for how far an object can rotate about its x-axis.
 - Rotate X Lower Bound: The lowwer limit for how far an object can rotate about its x-axis.
 
-##### Y-Axis Rotation
+#### Y-Axis Rotation
 
 - Rotate Y: Toggles whether procedurally-generated object are rotated about their y-axes.
 - Rotate Y Upper Bound: The upper limit for how far an object can rotate about its y-axis.
 - Rotate Y Lower Bound: The lowwer limit for how far an object can rotate about its y-axis.
 
-##### Z-Axis Rotation
+#### Z-Axis Rotation
 
 - Rotate Z: Toggles whether procedurally-generated object are rotated about their z-axes.
 - Rotate Z Upper Bound: The upper limit for how far an object can rotate about its z-axis.
@@ -78,19 +78,19 @@ Once you've done this, you now have access to the **ProceduralAssetNode**, which
 
 #### CULLING SETTINGS
 
-##### X-Axis Culling
+#### X-Axis Culling
 
 - Cull X Values: Toggles whether procedurally-generated object are culled based on their x-axis scale.
 - X Culling Minimum: The lowest possible value of an object's x-axis scale before it gets culled.
 - X Culling Maximum: The highest possible value of an object's x-axis scale before it gets culled.
 
-##### Y-Axis Culling
+#### Y-Axis Culling
 
 - Cull Y Values: Toggles whether procedurally-generated objects are culled based on their y-axis scale.
 - Y Culling Minimum: The lowest possible value of an object's y-axis scale before it gets culled.
 - Y Culling Maximum: The highest possible value of an object's y-axis scale before it gets culled.
 
-##### Z-Axis Culling
+#### Z-Axis Culling
 
 - Cull Z Values: Toggles whether procedurally-generated objects are culled based on their z-axis scale.
 - Z Culling Minimum: The lowest possible value of an object's z-axis scale before it gets culled.
