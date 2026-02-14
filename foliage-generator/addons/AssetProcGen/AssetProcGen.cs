@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [Tool]
-public partial class FoliageGenerator : Node3D
+public partial class AssetProcGen : Node3D
 {
 	private Vector3 _scalePrev;
 	private int _maxObjPrev;
@@ -26,7 +26,7 @@ public partial class FoliageGenerator : Node3D
 	[Export(PropertyHint.Range, "0,20000,")]
 	public int maximumObjects;
 	[ExportGroup("Noise")]
-	[Export] public FastNoiseLite noise { get; set; }
+	[Export] public FastNoiseLite fastNoiseLite { get; set; }
 	[Export(PropertyHint.Range, "0,30,")]
 	public float noiseScalar;
 	[ExportGroup("Jitter")]
@@ -35,31 +35,31 @@ public partial class FoliageGenerator : Node3D
 	[Export(PropertyHint.Range, "-0.1,0,")]
 	public float jitterLowerBound;
 	[ExportGroup("X-Axis Scalar")]
-	[Export] public bool scaleXValues;
+	[Export] public bool scaleX;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float xValueScalar = 1f;
 	[ExportGroup("Y-Axis Scalar")]
-	[Export] public bool scaleYValues;
+	[Export] public bool scaleY;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float yValueScalar = 1f;
 	[ExportGroup("Z-Axis Scalar")]
-	[Export] public bool scaleZValues;
+	[Export] public bool scaleZ;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float zValueScalar = 1f;
 	[ExportGroup("X-Axis Rotation")]
-	[Export] public bool rotateXValues;
+	[Export] public bool rotateX;
 	[Export(PropertyHint.Range, "-180,180,")]
 	public float xRotateUpperBound;
 	[Export(PropertyHint.Range, "-180,180,")]
 	public float xRotateLowerBound;
 	[ExportGroup("Y-Axis Rotation")]
-	[Export] public bool rotateYValues;
+	[Export] public bool rotateY;
 	[Export(PropertyHint.Range, "-180,180,")]
 	public float yRotateUpperBound;
 	[Export(PropertyHint.Range, "-180,180,")]
 	public float yRotateLowerBound;
 	[ExportGroup("Z-Axis Rotation")]
-	[Export] public bool rotateZValues;
+	[Export] public bool rotateZ;
 	[Export(PropertyHint.Range, "-180,180,")]
 	public float zRotateUpperBound;
 	[Export(PropertyHint.Range, "-180,180,")]
@@ -128,7 +128,7 @@ public partial class FoliageGenerator : Node3D
 		for (int j = (int)(-(maxIter / 2)); j < (int)(maxIter / 2); j++) {
 			for (int i = (int)(-(maxIter / 2)); i < (int)(maxIter / 2); i++) {
 				MeshInstance3D currObj = _objects[arrayIter];
-				float currNoise = noise.GetNoise2D(
+				float currNoise = fastNoiseLite.GetNoise2D(
 					(float)(this.GetScale().X * i / Math.Sqrt(maximumObjects)),
 					(float)(this.GetScale().Z * j / Math.Sqrt(maximumObjects))
 				);
@@ -147,9 +147,9 @@ public partial class FoliageGenerator : Node3D
 		Vector3 scaleVec;
 		
 		scaleVec = obj.GetScale() * new Vector3(
-			scaleXValues ? Math.Abs(xValueScalar * noise * noiseScalar) : 1,
-			scaleYValues ? Math.Abs(yValueScalar * noise * noiseScalar) : 1,
-			scaleZValues ? Math.Abs(zValueScalar * noise * noiseScalar) : 1
+			scaleX ? Math.Abs(xValueScalar * noise * noiseScalar) : 1,
+			scaleY ? Math.Abs(yValueScalar * noise * noiseScalar) : 1,
+			scaleZ ? Math.Abs(zValueScalar * noise * noiseScalar) : 1
 		);
 		obj.SetScale(scaleVec);
 	}
@@ -167,13 +167,13 @@ public partial class FoliageGenerator : Node3D
 	private void _SetObjectRotation(MeshInstance3D obj) {
 		var rng = new RandomNumberGenerator();
 		
-		if (rotateXValues) {
+		if (rotateX) {
 			obj.RotateX(rng.RandfRange(xRotateLowerBound, xRotateUpperBound) * (float)(Math.PI/180));
 		}
-		if (rotateYValues) {
+		if (rotateY) {
 			obj.RotateY(rng.RandfRange(yRotateLowerBound, yRotateUpperBound) * (float)(Math.PI/180));
 		}
-		if (rotateZValues) {
+		if (rotateZ) {
 			obj.RotateZ(rng.RandfRange(zRotateLowerBound, zRotateUpperBound) * (float)(Math.PI/180));
 		}
 	}
@@ -226,7 +226,7 @@ public partial class FoliageGenerator : Node3D
 			_CheckCullRanges();
 			_CheckRotationBounds();
 			
-			noise.Offset = this.GetPosition();
+			fastNoiseLite.Offset = this.GetPosition();
 			_PopulateObjectArray();
 			_PopulateToolArea();
 		}

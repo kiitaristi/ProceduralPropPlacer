@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cd8k5rj5wrxvs"]
+
+[ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://addons/AssetProcGen/AssetProcGen.cs" id="1_hm733"]
+
+[node name="AssetProcGen" type="Node3D" unique_id=1010014641]
+script = ExtResource("1_hm733")
+xCullingMinimum = 0.0
+xCullingMaximum = 10.0
+yCullingMinimum = 0.0
+yCullingMaximum = 10.0
+zCullingMinimum = 0.0
+zCullingMaximum = 10.0
