@@ -95,6 +95,13 @@ public partial class FoliageGenerator : Node3D
 		}
 	}
 	
+	public override void _Process(double delta) {
+		if (Engine.IsEditorHint()) {
+			_CheckCullRanges();
+			_CheckRotationBounds();
+		}
+	}
+	
 	private void _PopulateObjectArray() {
 		if (_objects != null) {
 			foreach (MeshInstance3D obj in _objects) {
@@ -191,26 +198,33 @@ public partial class FoliageGenerator : Node3D
 	}
 	
 	private void _CheckCullRanges() {
-		if (cullXValues && xCullingMinimum >= xCullingMaximum) {
+		if (xCullingMinimum >= xCullingMaximum) {
 			cullXValues = false;
 			xCullingMinimum = 0;
 			xCullingMaximum = 10;
 		}
-		if (cullYValues && yCullingMinimum >= yCullingMaximum) {
+		if (yCullingMinimum >= yCullingMaximum) {
 			cullYValues = false;
 			yCullingMinimum = 0;
 			yCullingMaximum = 10;
 		}
-		if (cullZValues && zCullingMinimum >= zCullingMaximum) {
+		if (zCullingMinimum >= zCullingMaximum) {
 			cullZValues = false;
 			zCullingMinimum = 0;
 			zCullingMaximum = 10;
 		}
 	}
 	
+	private void _CheckRotationBounds() {
+		if (xRotateLowerBound >= xRotateUpperBound) { xRotateLowerBound = xRotateUpperBound; } 
+		if (yRotateLowerBound >= yRotateUpperBound) { yRotateLowerBound = yRotateUpperBound; } 
+		if (zRotateLowerBound >= zRotateUpperBound) { zRotateLowerBound = zRotateUpperBound; } 
+	}
+	
 	public void Generate() {
 		if (Engine.IsEditorHint()) {
 			_CheckCullRanges();
+			_CheckRotationBounds();
 			
 			noise.Offset = this.GetPosition();
 			_PopulateObjectArray();
