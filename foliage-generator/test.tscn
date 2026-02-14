@@ -3,30 +3,45 @@
 [ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://FoliageGenerator/FoliageGenerator.cs" id="1_37kl0"]
 [ext_resource type="BoxMesh" uid="uid://c0bdnn3yo3wup" path="res://example_mesh.tres" id="2_8uh7m"]
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8uh7m"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8uh7m"]
-frequency = 0.0119
+frequency = 0.0137
+offset = Vector3(0, -0.01, 0)
 
-[node name="Test" type="Node3D" unique_id=1125569540]
+[node name="Node3D" type="Node3D" unique_id=1312696515]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1231419716]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.833517, 0)
-shadow_enabled = true
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2139279489]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 30.085867, 0)
+light_indirect_energy = 0.463
+light_bake_mode = 1
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=1825866388]
+[node name="Floor" type="CSGBox3D" parent="." unique_id=2132217482]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 use_collision = true
-size = Vector3(10.077637, 0.1, 10.0703125)
+size = Vector3(35, 0.1, 35)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=581565585]
-process_mode = 3
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+[node name="PlayerRef" type="MeshInstance3D" parent="." unique_id=1824522045]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_8uh7m")
+
+[node name="FoliageGenerator" type="Node3D" parent="." unique_id=333673507]
+transform = Transform3D(30, 0, 0, 0, 0.99999994, 0, 0, 0, 29.999998, 0, -0.01, 0)
 script = ExtResource("1_37kl0")
 objectMesh = ExtResource("2_8uh7m")
-objectXScale = 0.005
-objectYScale = 0.2
-objectZScale = 0.005
+objectXScale = 0.015
+objectYScale = 0.317
+objectZScale = 0.015
+maximumObjects = 6930
 noise = SubResource("FastNoiseLite_8uh7m")
-noiseScalar = 6.517
-maximumObjects = 19295
+noiseScalar = 3.423
+jitterUpperBound = 0.025
+jitterLowerBound = -0.025
 scaleYValues = true
-yValueScalar = 2.091
+yValueScalar = 1.537
+rotateXValues = true
+xRotateUpperBound = 25.368
+xRotateLowerBound = 19.329
+cullYValues = true
+yCullingMinimum = 0.061
+yCullingMaximum = 10.0

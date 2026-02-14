@@ -22,25 +22,68 @@ public partial class FoliageGenerator : Node3D
 	public float objectZScale = 1f;
 	
 	[ExportCategory("Generation Settings")]
-	[ExportGroup("Noise Settings")]
+	[ExportGroup("Object Density")]
+	[Export(PropertyHint.Range, "0,20000,")]
+	public int maximumObjects;
+	[ExportGroup("Noise")]
 	[Export] public FastNoiseLite noise { get; set; }
 	[Export(PropertyHint.Range, "0,30,")]
 	public float noiseScalar;
-	[ExportGroup("Density Settings")]
-	[Export(PropertyHint.Range, "0,20000,")]
-	public int maximumObjects;
-	[ExportGroup("X Scalar Settings")]
+	[ExportGroup("Jitter")]
+	[Export(PropertyHint.Range, "0,0.1,")]
+	public float jitterUpperBound;
+	[Export(PropertyHint.Range, "-0.1,0,")]
+	public float jitterLowerBound;
+	[ExportGroup("X-Axis Scalar")]
 	[Export] public bool scaleXValues;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float xValueScalar = 1f;
-	[ExportGroup("Y Scalar Settings")]
+	[ExportGroup("Y-Axis Scalar")]
 	[Export] public bool scaleYValues;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float yValueScalar = 1f;
-	[ExportGroup("Z Scalar Settings")]
+	[ExportGroup("Z-Axis Scalar")]
 	[Export] public bool scaleZValues;
 	[Export(PropertyHint.Range, "0,10,")]
 	public float zValueScalar = 1f;
+	[ExportGroup("X-Axis Rotation")]
+	[Export] public bool rotateXValues;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float xRotateUpperBound;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float xRotateLowerBound;
+	[ExportGroup("Y-Axis Rotation")]
+	[Export] public bool rotateYValues;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float yRotateUpperBound;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float yRotateLowerBound;
+	[ExportGroup("Z-Axis Rotation")]
+	[Export] public bool rotateZValues;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float zRotateUpperBound;
+	[Export(PropertyHint.Range, "-180,180,")]
+	public float zRotateLowerBound;
+	
+	[ExportCategory("Culling Settings")]
+	[ExportGroup("X-Axis Culling")]
+	[Export] public bool cullXValues;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float xCullingMinimum = 1f;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float xCullingMaximum = 1f;
+	[ExportGroup("Y-Axis Culling")]
+	[Export] public bool cullYValues;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float yCullingMinimum = 1f;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float yCullingMaximum = 1f;
+	[ExportGroup("Z-Axis Culling")]
+	[Export] public bool cullZValues;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float zCullingMinimum = 1f;
+	[Export(PropertyHint.Range, "0,10,")]
+	public float zCullingMaximum = 1f;
 	
 	[ExportCategory("Seed")]
 	[Export] public string seed;
@@ -53,13 +96,12 @@ public partial class FoliageGenerator : Node3D
 	}
 	
 	private void _PopulateObjectArray() {
-		_objects = [];
-		
-		if (_objects.Count != 0) {
+		if (_objects != null) {
 			foreach (MeshInstance3D obj in _objects) {
 				obj.QueueFree();
 			}
 		}
+		_objects = [];
 		
 		Vector3 scalarVec = new Vector3(objectXScale, objectYScale, objectZScale);
 		
@@ -73,39 +115,103 @@ public partial class FoliageGenerator : Node3D
 	}
 	
 	private void _PopulateToolArea() {
-		Vector3 posVec;
-		Vector3 scaleVec;
 		int maxIter = (int)Math.Floor(Math.Sqrt(maximumObjects));
 		int arrayIter = 0;
 		
 		for (int j = (int)(-(maxIter / 2)); j < (int)(maxIter / 2); j++) {
 			for (int i = (int)(-(maxIter / 2)); i < (int)(maxIter / 2); i++) {
-				float currNoise = noise.GetNoise2D(
-					(float)(this.GetScale()[0] * i / Math.Sqrt(maximumObjects)),
-					(float)(this.GetScale()[2] * j / Math.Sqrt(maximumObjects))
-					);
 				MeshInstance3D currObj = _objects[arrayIter];
-					
-				scaleVec = currObj.GetScale() * new Vector3(
-					scaleXValues ? xValueScalar * currNoise * noiseScalar : 1,
-					scaleYValues ? yValueScalar * currNoise * noiseScalar : 1,
-					scaleZValues ? zValueScalar * currNoise * noiseScalar : 1
+				float currNoise = noise.GetNoise2D(
+					(float)(this.GetScale().X * i / Math.Sqrt(maximumObjects)),
+					(float)(this.GetScale().Z * j / Math.Sqrt(maximumObjects))
 				);
-				currObj.SetScale(scaleVec);
-				currObj.Show();
 				
-				posVec = new Vector3((float)(i / Math.Sqrt(maximumObjects)), 
-					(float)this.Position[1] + (float)Math.Abs(currObj.Scale[1] / 2), (float)(j / Math.Sqrt(maximumObjects)));
-				currObj.SetPosition(ToGlobal(posVec));
-				
-				Owner.AddChild(currObj);
+				_SetObjectScale(currObj, currNoise);
+				_SetObjectPosition(currObj, i, j);
+				_SetObjectRotation(currObj);
+
+				_TryCullObject(currObj);
 				arrayIter++;
 			}
 		}
 	}
 	
+	private void _SetObjectScale(MeshInstance3D obj, float noise) {
+		Vector3 scaleVec;
+		
+		scaleVec = obj.GetScale() * new Vector3(
+			scaleXValues ? Math.Abs(xValueScalar * noise * noiseScalar) : 1,
+			scaleYValues ? Math.Abs(yValueScalar * noise * noiseScalar) : 1,
+			scaleZValues ? Math.Abs(zValueScalar * noise * noiseScalar) : 1
+		);
+		obj.SetScale(scaleVec);
+	}
+	
+	private void _SetObjectPosition(MeshInstance3D obj, int i, int j) {
+		Vector3 posVec;
+		var rng = new RandomNumberGenerator();
+		
+		posVec = new Vector3((float)((i / Math.Sqrt(maximumObjects)) + rng.RandfRange(jitterLowerBound, jitterUpperBound)), 
+			(float)this.Position[1] + (float)Math.Abs(obj.Scale[1] / 2), 
+			(float)((j / Math.Sqrt(maximumObjects)) + rng.RandfRange(jitterLowerBound, jitterUpperBound)));
+		obj.SetPosition(ToGlobal(posVec));
+	}
+	
+	private void _SetObjectRotation(MeshInstance3D obj) {
+		var rng = new RandomNumberGenerator();
+		
+		if (rotateXValues) {
+			obj.RotateX(rng.RandfRange(xRotateLowerBound, xRotateUpperBound) * (float)(Math.PI/180));
+		}
+		if (rotateYValues) {
+			obj.RotateY(rng.RandfRange(yRotateLowerBound, yRotateUpperBound) * (float)(Math.PI/180));
+		}
+		if (rotateZValues) {
+			obj.RotateZ(rng.RandfRange(zRotateLowerBound, zRotateUpperBound) * (float)(Math.PI/180));
+		}
+	}
+	
+	private void _TryCullObject(MeshInstance3D obj) {
+		if (cullXValues) {
+			if (obj.GetScale().X > xCullingMinimum && obj.GetScale().X < xCullingMaximum) {
+				Owner.AddChild(obj);
+			}
+		}
+		else if (cullYValues) {
+			if (obj.GetScale().Y > yCullingMinimum && obj.GetScale().Y < yCullingMaximum) {
+				Owner.AddChild(obj);
+			}
+		}
+		else if (cullZValues) {
+			if (obj.GetScale().Z > zCullingMinimum && obj.GetScale().Z < zCullingMaximum) {
+				Owner.AddChild(obj);
+			}
+		}
+		else { Owner.AddChild(obj); }
+	}
+	
+	private void _CheckCullRanges() {
+		if (cullXValues && xCullingMinimum >= xCullingMaximum) {
+			cullXValues = false;
+			xCullingMinimum = 0;
+			xCullingMaximum = 10;
+		}
+		if (cullYValues && yCullingMinimum >= yCullingMaximum) {
+			cullYValues = false;
+			yCullingMinimum = 0;
+			yCullingMaximum = 10;
+		}
+		if (cullZValues && zCullingMinimum >= zCullingMaximum) {
+			cullZValues = false;
+			zCullingMinimum = 0;
+			zCullingMaximum = 10;
+		}
+	}
+	
 	public void Generate() {
 		if (Engine.IsEditorHint()) {
+			_CheckCullRanges();
+			
 			noise.Offset = this.GetPosition();
 			_PopulateObjectArray();
 			_PopulateToolArea();
