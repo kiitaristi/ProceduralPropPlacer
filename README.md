@@ -31,12 +31,12 @@ Once you've done this, you now have access to the **ProceduralPropNode**, which 
 
 #### Object Density
 
-- **Maximum Objects:** The maximum amount of objects output by the ProceduralAssetNode.
+- **Maximum Objects:** The maximum amount of objects output by the ProceduralPropNode.
 
 #### Noise
 
 - **Fast Noise Lite:** Takes the Fast Noise Lite library as input, at which point the user can access the library's associated noise parameters.
-  - *The noise offset is automatically determined by the ProceduralAssetNode's position, so don't worry if you can't adjust the offset! This may change in future versions if users prefer having control over the offset regardless of position.*
+  - *The noise offset is automatically determined by the ProceduralPropNode's position, so don't worry if you can't adjust the offset! This may change in future versions if users prefer having control over the offset regardless of position.*
 - **Noise Scalar:** Scales the effects of the given noise parameters.
 
 #### Jitter
@@ -99,7 +99,7 @@ Once you've done this, you now have access to the **ProceduralPropNode**, which 
 
 #### Transform
 
-- The ProceduralAssetNode inherits from Node3D, meaning that it inherits its transform. The bounds for the generation field of the ProceduralAssetNode are determined by its transform's X and Z scale and where it generates is based off its transforms position.
+- The ProceduralPropNode inherits from Node3D, meaning that it inherits its transform. The bounds for the generation field of the ProceduralPropNode are determined by its transform's X and Z scale and where it generates is based off its transforms position.
 
 ## ![Example 1](ppp_example1.png)
 
