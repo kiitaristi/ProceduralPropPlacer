@@ -19,13 +19,13 @@ Once you've done this, you now have access to the **ProceduralPropNode**, which 
 
 #### OBJECT SETTINGS
 
-- Object Mesh: Takes a mesh object as input.
+- **Object Mesh:** Takes a mesh object as input.
 
 #### Object Scaling
 
-- Object X Scalar: A scalar that scales the given mesh along the X-axis.
-- Object Y Scalar: A scalar that scales the given mesh along the Y-axis.
-- Object Z Scalar: A scalar that scales the given mesh along the Z-axis.
+- **Object X Scalar:** A scalar that scales the given mesh along the X-axis.
+- **Object Y Scalar:** A scalar that scales the given mesh along the Y-axis.
+- **Object Z Scalar:** A scalar that scales the given mesh along the Z-axis.
 
 #### GENERATION SETTINGS
 
@@ -108,3 +108,4 @@ Once you've done this, you now have access to the **ProceduralPropNode**, which 
 ### KNOWN ISSUES/LIMITATIONS
 
 - Object generation and jitter are only handled on the X-axis and Z-axis. This will change in future versions, with toggles that change generation and jitter to apply to XY, YZ, and XYZ axis combinations.
+- Seed generation has yet to be implemented, meaning that certain configurations will be harder to replicate.

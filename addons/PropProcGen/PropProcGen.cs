@@ -90,9 +90,13 @@ public partial class PropProcGen : Node3D
 	
 	public override void _Ready() {
 		if (!Engine.IsEditorHint()) {
-			// FIXME: what the attached foliage tool 
-			// outputs from the parent object's transform
-		}
+            _CheckCullRanges();
+            _CheckRotationBounds();
+
+            fastNoiseLite.Offset = this.GetPosition();
+            _PopulateObjectArray();
+            _PopulateToolArea();
+        }
 	}
 	
 	public override void _Process(double delta) {
