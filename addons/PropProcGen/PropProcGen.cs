@@ -4,8 +4,6 @@ using System;
 [Tool]
 public partial class PropProcGen : Node3D
 {
-	private Vector3 _scalePrev;
-	private int _maxObjPrev;
 	private Godot.Collections.Array<MeshInstance3D> _objects;
 	
 	[ExportToolButton("Run Generation")]
