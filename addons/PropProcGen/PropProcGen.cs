@@ -88,6 +88,7 @@ public partial class PropProcGen : Node3D
 	
 	public override void _Ready() {
 		if (!Engine.IsEditorHint()) {
+            this.SetScale(new Vector3(this.Scale[0], 1, this.Scale[2]));
             _CheckCullRanges();
             _CheckRotationBounds();
 
@@ -225,7 +226,8 @@ public partial class PropProcGen : Node3D
 	
 	public void Generate() {
 		if (Engine.IsEditorHint()) {
-			_CheckCullRanges();
+            this.SetScale(new Vector3(this.Scale[0], 1, this.Scale[2]));
+            _CheckCullRanges();
 			_CheckRotationBounds();
 			
 			fastNoiseLite.Offset = this.GetPosition();
