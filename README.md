@@ -1,6 +1,6 @@
-# ![PROCEDURAL ASSET GENERATOR](apg_icon.png)
+# ![PROCEDURAL PROP PLACER](PPP_icon.png)
 
-## PROCEDURAL ASSET GENERATOR
+## PROCEDURAL PROP PLACER
 
 This C#-based Godot tool is designed to procedurally generate and place assets within a 3D scene, with general setdressing use in mind. Using the plugin's Procedural Asset node and its associated interface, you'll be able to generate variations of the asset you've input based on the adjusted parameters.
 
@@ -95,3 +95,7 @@ Once you've done this, you now have access to the **ProceduralAssetNode**, which
 - Cull Z Values: Toggles whether procedurally-generated objects are culled based on their z-axis scale.
 - Z Culling Minimum: The lowest possible value of an object's z-axis scale before it gets culled.
 - Z Culling Maximum: The highest possible value of an object's z-axis scale before it gets culled.
+
+## ![Example 1](ppp_example1.png)
+
+## ![Example 2](ppp_example2.png)
