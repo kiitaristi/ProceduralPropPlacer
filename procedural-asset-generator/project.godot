@@ -20,7 +20,7 @@ project/assembly_name="FoliageGenerator"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AssetProcGen/plugin.cfg")
+enabled=PackedStringArray("res://addons/AssetProcGen/plugin.cfg", "res://addons/PropProcGen/plugin.cfg")
 
 [physics]
 

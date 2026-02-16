@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [Tool]
-public partial class AssetProcGen : Node3D
+public partial class PropProcGen : Node3D
 {
 	private Vector3 _scalePrev;
 	private int _maxObjPrev;
@@ -136,7 +136,7 @@ public partial class AssetProcGen : Node3D
 				_SetObjectScale(currObj, currNoise);
 				_SetObjectPosition(currObj, i, j);
 				_SetObjectRotation(currObj);
-
+				
 				_TryCullObject(currObj);
 				arrayIter++;
 			}

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cd8k5rj5wrxvs"]
 
-[ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://addons/AssetProcGen/AssetProcGen.cs" id="1_hm733"]
+[ext_resource type="Script" uid="uid://eaphwfq1i07b" path="res://addons/PropProcGen/PropProcGen.cs" id="1_hm733"]
 
 [node name="AssetProcGen" type="Node3D" unique_id=1010014641]
 script = ExtResource("1_hm733")
