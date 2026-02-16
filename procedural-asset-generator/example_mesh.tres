@@ -1,7 +1,0 @@
-[gd_resource type="BoxMesh" format=3 uid="uid://c0bdnn3yo3wup"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_43wey"]
-
-[resource]
-lightmap_size_hint = Vector2i(5, 8)
-material = SubResource("StandardMaterial3D_43wey")
