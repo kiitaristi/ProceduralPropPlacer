@@ -11,7 +11,7 @@ This C#-based Godot tool is designed to procedurally generate and place environm
 1. Download the "addons/PropProcGen" folder from this repository.
 2. If you do not already have an "addons" folder in your Godot project, place the given addons folder in your Godot project. Otherwise, extract the contents of this plugin's addons folder to your Godot project's own addons folder.
 3. In the Godot editor, build your project from the interface or using Alt+B.
-4. In **Project -> Project Settings -> Plugins**, enable the Procedural Asset Generation plugin.
+4. In **Project -> Project Settings -> Plugins**, enable the Procedural Prop Placer plugin.
 
 Once you've done this, you now have access to the **ProceduralPropNode**, which you can directly place within the scene and begin using!
 
