@@ -99,7 +99,7 @@ Once you've done this, you now have access to the **ProceduralPropNode**, which 
 
 #### Transform
 
-- The ProceduralPropNode inherits from Node3D, meaning that it inherits its transform. The bounds for the generation field of the ProceduralPropNode are determined by its transform's X and Z scale and where it generates is based off its transforms position.
+- The ProceduralPropNode inherits from Node3D, meaning that it inherits its transform. The bounds for the generation field of the ProceduralPropNode are determined by its transform's X and Z scale and where it generates is based off its transform's position.
 
 ## ![Example 1](ppp_example1.png)
 
